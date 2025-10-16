@@ -1136,8 +1136,8 @@ if __name__ == "__main__":
     # Metadata for export
     input_info = {
         "model": model,
-        "start": start,
-        "end": end
+        "start": start.strftime('%Y-%m'),
+        "end": end.strftime('%Y-%m')
     }
     # Export all results to Excel
     export_to_excel(file_name, input_info, results)
