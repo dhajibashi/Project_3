@@ -660,8 +660,9 @@ def fmb_procedure(excess_returns: pd.DataFrame, betas: pd.DataFrame) -> pd.DataF
     # Two-tailed p-values
     pval = 2 * (1 - t_dist.cdf(np.abs(t_stats), df=T-1))
 
-    # Add "Alpha" as intercept name + factor names
-    factor_names = ["Alpha"] + list(betas.columns)
+    # Add "Lambda_Alpha" as intercept name + factor names
+    # Change the factor names from Beta_0, Beta_1, ... to Lambda_Alpha, Lambda_Factor1, ...
+    factor_names = ["Lambda_Alpha"] + [f"Lambda_{name.replace('Beta_', '')}" for name in betas.columns]
 
     summary_df = pd.DataFrame({
         "Mean": mean_lambda,
@@ -778,7 +779,7 @@ def plot_fmb_capm_lambdas(fmb_capm_summary):
     Plot FMB CAPM lambdas (Alpha and Beta_MKT) with error bars.
     '''
     fig, ax = plt.subplots()
-    s = fmb_capm_summary.loc[["Alpha", "Beta_MKT"]]
+    s = fmb_capm_summary.loc[["Lambda_Alpha", "Lambda_MKT"]]
     x_pos = [0.5, 1.5]
     ax.errorbar(x_pos, s["Mean"], yerr=s["StdErr"], fmt='o')
     ax.set_xticks(x_pos)
@@ -794,7 +795,7 @@ def plot_fmb_ff3f_lambdas(fmb_ff3_summary):
     Plot FMB FF3F lambdas (Alpha, Beta_MKT, Beta_SMB, Beta_HML) with error bars.
     '''
     fig, ax = plt.subplots()
-    s = fmb_ff3_summary.loc[["Alpha", "Beta_MKT", "Beta_SMB", "Beta_HML"]]
+    s = fmb_ff3_summary.loc[["Lambda_Alpha", "Lambda_MKT", "Lambda_SMB", "Lambda_HML"]]
     ax.errorbar(range(s.shape[0]), s["Mean"], yerr=s["StdErr"], fmt='o')
     ax.set_xticks(range(s.shape[0]))
     ax.set_xticklabels(s.index, rotation=0)
