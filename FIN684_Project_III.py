@@ -534,6 +534,7 @@ def run_capm_regression(sample, port_cols, excess, CAPM_L):
         "Average R2": [avg_r2_capm],
         "GRS (CAPM)": [GRS_capm],
         "p-value": [p_capm],
+        "Conclusion": ["Reject Null" if p_capm <= 0.05 else "Do Not Reject Null"],
         "T": [T_capm],
         "N": [N_capm]
     })
@@ -604,6 +605,7 @@ def run_ff3f_regression(sample, port_cols, excess, FF3_L):
         "Average R2": [avg_r2_ff3],
         "GRS (FF3F)": [GRS_ff3],
         "p-value": [p_ff3],
+        "Conclusion": ["Reject Null" if p_ff3 <= 0.05 else "Do Not Reject Null"],
         "T": [T_ff3],
         "N": [N_ff3]
     })
